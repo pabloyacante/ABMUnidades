@@ -11,9 +11,11 @@ type UnityModalProps = {
     title: string;
     modalType: ModalType;
     unit: Unity;
+    refreshData: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
 
-const UnityModal = ({show, onHide, title, modalType, unit}: UnityModalProps) => {
+const UnityModal = ({show, onHide, title, modalType, unit,refreshData}: UnityModalProps) => {
     
     //CREATE - ACTUALIZAR
     const handleSaveUpdate = async (unit: Unity) => {
@@ -26,6 +28,8 @@ const UnityModal = ({show, onHide, title, modalType, unit}: UnityModalProps) => 
                     await UnityService.updateUnity(unit.id,unit);
                 }
                 onHide();
+                refreshData(prevState=> !prevState);
+ 
             }catch(error) { 
                 console.error;
             }
@@ -37,6 +41,8 @@ const UnityModal = ({show, onHide, title, modalType, unit}: UnityModalProps) => 
         try {
             await UnityService.deleteUnity(unit.id);
             onHide();
+            refreshData(prevState=> !prevState);
+
         }catch(error) {
             console.error(error);
         }

@@ -20,6 +20,8 @@ const UnityTable = () => {
     //muestra el componente Loader hasta que se reciban los datos de la API
     const [isLoading, setIsLoading] = useState(true);
 
+    const [refreshData, setRefreshData] = useState(false);
+
     //Este hook se ejecuta cada vez que se renderice el componente
     useEffect(() => {
         //llamamos a la funcion para obtener todos los produtos declarados en el service
@@ -31,7 +33,7 @@ const UnityTable = () => {
 
         fetchUnities();
 
-    }, []);
+    }, [refreshData]);
     //test, este log esta modificado para mostrar mejor los datos
     console.log(JSON.stringify(unities, null, 2));
 
@@ -80,7 +82,7 @@ const UnityTable = () => {
                 </thead> 
                 <tbody>
                     {unities.map(unity => (
-                        <tr> key={unity.id}
+                        <tr key={unity.id}>
                         <td>{unity.abreviatura}</td>
                         <td>{unity.denominacion}</td>
                         <td> <EditButton onClick={() => handleClick("Editar Unidad", unity, ModalType.UPDATE)}/> </td>
@@ -98,6 +100,7 @@ const UnityTable = () => {
             title={title}
             modalType={modalType}
             unit={unity}
+            refreshData={setRefreshData}
             />
         )}
      </>  

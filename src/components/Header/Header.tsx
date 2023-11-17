@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import '../../styles/HeaderStyle.css';
 import BotonIngresar from "../ModalIngreso/BotonIngresar";
 
 const Header = () => {
+
+    const navigate = useNavigate();
 
 
     return (
